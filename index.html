@@ -78,6 +78,10 @@
                 width: 100%;
             }
 
+            .text-post {
+                margin-bottom: 35px;
+            }
+
             .caption p {
                 margin: 0;
             }
@@ -127,15 +131,13 @@
                 <div class="row grid">
                     <div class="grid-sizer"></div>
                     {block:Posts}
-                        {block:NotReblog}
-                            {block:Photo}
-                                <div class="grid-item">
-                                    <a href="{Permalink}">
-                                        <img src="{PhotoURL-400}" alt="{PhotoAlt}" />
-                                    </a>
-                                </div>
-                            {/block:Photo}
-                        {/block:NotReblog}
+                        {block:Photo}
+                            <div class="grid-item">
+                                <a href="{Permalink}">
+                                    <img src="{PhotoURL-400}" alt="{PhotoAlt}" />
+                                </a>
+                            </div>
+                        {/block:Photo}
                     {/block:Posts}
                 </div>
             {/block:IndexPage}
@@ -143,9 +145,19 @@
                 <div class="grid"></div><!-- So Masonry doesn't throw a fit on permalink pages -->
                 {block:Posts}
                     <div class="row">
-                        {block:Photo}
-                            <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="permalink-image" />
-                        {/block:Photo}
+                        <div class="col-md-12">
+                            {block:Photo}
+                                <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="permalink-image" />
+                            {/block:Photo}
+                            {block:Text}
+                                <div class="text-post">
+                                    {block:Title}
+                                        <h2>{Title}</h2>
+                                    {/block:Title}
+                                    {Body}
+                                </div>
+                            {/block:Text}
+                        </div>
                     </div>
                     {block:Caption}
                         <div class="row padded well well-sm">
