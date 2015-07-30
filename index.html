@@ -1,0 +1,210 @@
+<html>
+
+    <head>
+        <!-- DEFAULT COLORS -->
+        <meta name="color:Background color" content="#FFFFFF"/>
+        <meta name="color:Link color" content="#FF851B"/>
+
+        <title>{Title}</title>
+        <link rel="shortcut icon" href="{Favicon}">
+        <link rel="alternate" type="application/rss+xml" href="{RSS}">
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        
+        <style>
+            @media (min-width: 768px) {
+                .custom-container {
+                    width: 700px;
+                }
+            }
+            
+            @media (min-width: 992px) {
+                .custom-container {
+                    width: 700px;
+                }
+            }
+            
+            @media (min-width: 1200px) {
+                .custom-container {
+                    width: 700px;
+                }
+            }
+
+            body {
+                background-color: {color:Background color};
+            }
+            
+            a, a:hover {
+                color: {color:Link color};
+            }
+
+            .padded {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            
+            .top-bar {
+                margin-top: 50px;
+            }
+            
+            .name {
+                padding-right: 10px;
+                font-weight: bold;
+            }
+            
+            .subtitle {
+                opacity: 0.5;
+            }
+            
+            .grid-sizer {
+                padding: 10px;
+                width: 10%;
+            }
+            
+            .grid-item {
+                float: left;
+                padding: 10px;
+                width: 50%;
+            }
+            
+            .grid-item img {
+                display: block;
+                max-width: 100%;
+            }
+
+            .permalink-image {
+                width: 100%;
+            }
+
+            .caption p {
+                margin: 0;
+            }
+
+            .post-notes ol {
+                padding: 0;
+                list-style-type: none;
+            }
+
+            .post-notes img {
+                margin-right: 5px;
+            }
+            
+            .copyright {
+                margin-top: 10px;
+                margin-bottom: 65px;
+                text-align: center;
+                opacity: 0.5;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container custom-container">
+            <div class="row top-bar">
+                <div class="col-xs-10">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a class="name" href="{BlogURL}">{Title}</a><span class="subtitle">{Description}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="list-inline">
+                                {block:Pages}
+                                    <li><a href="{URL}">{Label}</a></li>
+                                {/block:Pages}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 text-right">
+                    <a href="{BlogURL}"><img src="{PortraitURL-40}"></a>
+                </div>
+            </div>
+            {block:IndexPage}
+                <div class="row grid">
+                    <div class="grid-sizer"></div>
+                    {block:Posts}
+                        {block:NotReblog}
+                            {block:Photo}
+                                <div class="grid-item">
+                                    <a href="{Permalink}">
+                                        <img src="{PhotoURL-400}" alt="{PhotoAlt}" />
+                                    </a>
+                                </div>
+                            {/block:Photo}
+                        {/block:NotReblog}
+                    {/block:Posts}
+                </div>
+            {/block:IndexPage}
+            {block:PermalinkPage}
+                <div class="grid"></div><!-- So Masonry doesn't throw a fit on permalink pages -->
+                {block:Posts}
+                    <div class="row">
+                        {block:Photo}
+                            <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="permalink-image" />
+                        {/block:Photo}
+                    </div>
+                    {block:Caption}
+                        <div class="row padded well well-sm">
+                            <div class="col-md-12 text-center caption">
+                                {Caption}
+                            </div>
+                        </div>
+                    {/block:Caption}
+                    {block:PostNotes}
+                        <div class="row padded">
+                            <div class="col-md-12 post-notes">
+                                {PostNotes-16}
+                            </div>
+                        </div>
+                    {/block:PostNotes}
+                {/block:Posts}
+            {/block:PermalinkPage}
+            {block:Pagination}
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <nav>
+                            <ul class="pager">
+                                {block:PreviousPage}
+                                    <li class="previous"><a href="{PreviousPage}"><span aria-hidden="true">&larr;</span> Newer</a></li>
+                                {/block:PreviousPage}
+                                {block:NextPage}
+                                    <li class="next"><a href="{NextPage}">Older <span aria-hidden="true">&rarr;</span></a></li>
+                                {/block:NextPage}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {/block:Pagination}
+            <div class="row">
+                <div class="col-md-12 copyright">
+                    Content copyright &copy; {Title} {CopyrightYears}
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="http://static.tumblr.com/zrjazwt/eDfnsbjph/imagesloaded.pkgd.min.js"></script>
+    
+    <script type="text/javascript">
+        docReady(function() {
+            var grid = document.querySelector(".grid");
+
+            var msnry = new Masonry(grid, {
+                itemSelector: ".grid-item",
+                columnWidth: ".grid-sizer",
+                percentPosition: true,
+                transitionDuration: 0
+            });
+
+            imagesLoaded(grid, function() {
+                msnry.layout();
+            });
+        });
+    </script>
+
+</html>
