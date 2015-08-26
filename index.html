@@ -58,32 +58,23 @@
                 opacity: 0.5;
             }
             
-            .grid-sizer {
-                padding: 10px;
-                width: 10%;
-            }
-            
-            .grid-item {
-                float: left;
-                padding: 10px;
-                width: 50%;
-            }
-            
             .grid-item img {
+                margin-bottom: 15px;
                 display: block;
                 max-width: 100%;
             }
 
             .permalink-image {
                 width: 100%;
+                margin-bottom: 35px;
+            }
+            
+            .caption p {
+                margin: 0 !important;
             }
 
             .text-post {
                 margin-bottom: 35px;
-            }
-
-            .caption p {
-                margin: 0;
             }
 
             .post-notes ol {
@@ -129,20 +120,18 @@
             </div>
             {block:IndexPage}
                 <div class="row grid">
-                    <div class="grid-sizer"></div>
-                    {block:Posts}
-                        {block:Photo}
-                            <div class="grid-item">
-                                <a href="{Permalink}">
-                                    <img src="{PhotoURL-400}" alt="{PhotoAlt}" />
+                    <div class="col-md-12">
+                        {block:Posts}
+                            {block:Photo}
+                                <a href="{Permalink}" class="grid-item">
+                                    <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
                                 </a>
-                            </div>
-                        {/block:Photo}
-                    {/block:Posts}
+                            {/block:Photo}
+                        {/block:Posts}
+                    </div>
                 </div>
             {/block:IndexPage}
             {block:PermalinkPage}
-                <div class="grid"></div><!-- So Masonry doesn't throw a fit on permalink pages -->
                 {block:Posts}
                     <div class="row">
                         <div class="col-md-12">
@@ -160,8 +149,8 @@
                         </div>
                     </div>
                     {block:Caption}
-                        <div class="row padded well well-sm">
-                            <div class="col-md-12 text-center caption">
+                        <div class="panel panel-default">
+                            <div class="caption panel-body">
                                 {Caption}
                             </div>
                         </div>
@@ -176,7 +165,7 @@
                 {/block:Posts}
             {/block:PermalinkPage}
             {block:Pagination}
-                <div class="row">
+                <div class="row padded">
                     <div class="col-md-8 col-md-offset-2">
                         <nav>
                             <ul class="pager">
@@ -198,25 +187,5 @@
             </div>
         </div>
     </body>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"></script>
-    <script type="text/javascript" src="http://static.tumblr.com/zrjazwt/eDfnsbjph/imagesloaded.pkgd.min.js"></script>
-    
-    <script type="text/javascript">
-        docReady(function() {
-            var grid = document.querySelector(".grid");
-
-            var msnry = new Masonry(grid, {
-                itemSelector: ".grid-item",
-                columnWidth: ".grid-sizer",
-                percentPosition: true,
-                transitionDuration: 0
-            });
-
-            imagesLoaded(grid, function() {
-                msnry.layout();
-            });
-        });
-    </script>
 
 </html>
