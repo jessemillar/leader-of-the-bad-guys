@@ -3,7 +3,12 @@
     <head>
         <!-- DEFAULT COLORS -->
         <meta name="color:Background color" content="#FFFFFF"/>
+        <meta name="color:Subtitle color" content="#FF851B"/>
         <meta name="color:Link color" content="#FF851B"/>
+
+        <!-- THEME BOOLEANS -->
+        <meta name="if:Show avatar" content="1"/>
+        <meta name="if:Show subtitle" content="1"/>
 
         <title>{Title}</title>
         <link rel="shortcut icon" href="{Favicon}">
@@ -40,22 +45,26 @@
                 color: {color:Link color};
             }
 
+            .top-bar {
+                margin-top: 50px;
+            }
+
             .padded {
                 margin-top: 30px;
                 margin-bottom: 30px;
             }
             
-            .top-bar {
-                margin-top: 50px;
+            .title-bar {
+                white-space: nowrap;
             }
-            
+
             .name {
                 padding-right: 10px;
                 font-weight: bold;
             }
             
             .subtitle {
-                opacity: 0.5;
+                color: {color:Subtitle color};
             }
             
             .grid-item img {
@@ -100,8 +109,8 @@
             <div class="row top-bar">
                 <div class="col-xs-10">
                     <div class="row">
-                        <div class="col-xs-12">
-                            <a class="name" href="{BlogURL}">{Title}</a><span class="subtitle">{Description}</span>
+                        <div class="col-xs-12 title-bar">
+                            <a class="name" href="{BlogURL}">{Title}</a>{block:IfShowSubtitle}<span class="subtitle">{Description}</span>{/block:IfShowSubtitle}
                         </div>
                     </div>
                     <div class="row">
@@ -115,7 +124,9 @@
                     </div>
                 </div>
                 <div class="col-xs-2 text-right">
-                    <a href="{BlogURL}"><img src="{PortraitURL-40}"></a>
+                    {block:IfShowAvatar}
+                        <a href="{BlogURL}"><img src="{PortraitURL-40}"></a>
+                    {/block:IfShowAvatar}
                 </div>
             </div>
             {block:IndexPage}
